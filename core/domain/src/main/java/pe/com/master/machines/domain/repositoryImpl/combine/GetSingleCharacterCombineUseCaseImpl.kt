@@ -6,21 +6,19 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import pe.com.master.machines.common.response.Resource
 import pe.com.master.machines.common.response.toErrorType
+import pe.com.master.machines.data.repository.database.StoryCharacterLocalDataRepository
+import pe.com.master.machines.data.repository.remote.StoryCharacterRemoteDataRepository
 import pe.com.master.machines.domain.repository.combine.GetSingleCharacterCombineUseCase
-import pe.com.master.machines.domain.repository.database.GetSingleCharacterLocalUseCase
-import pe.com.master.machines.domain.repository.database.SaveAllCharactersLocalUseCase
-import pe.com.master.machines.domain.repository.remote.GetSingleCharacterRemoteUseCase
 import pe.com.master.machines.model.model.StoryCharacter
 import javax.inject.Inject
 
 class GetSingleCharacterCombineUseCaseImpl @Inject constructor(
-    private val getSingleCharacterLocalUseCase: GetSingleCharacterLocalUseCase,
-    private val getSingleCharacterRemoteUseCase: GetSingleCharacterRemoteUseCase,
-    private val saveAllCharactersLocalUseCase: SaveAllCharactersLocalUseCase,
+    private val storyCharacterLocalDataRepository: StoryCharacterLocalDataRepository,
+    private val storyCharacterRemoteDataRepository: StoryCharacterRemoteDataRepository,
 ) : GetSingleCharacterCombineUseCase {
 
     override fun invoke(isHaveInternet: Boolean, id: Int): Flow<Resource<StoryCharacter>> {
-        val localFlow = getSingleCharacterLocalUseCase.invoke(id)
+        val localFlow = storyCharacterLocalDataRepository.getSingleCharacter(id)
         return if (!isHaveInternet) {
             localFlow.map { local ->
                 when (local) {
@@ -29,11 +27,12 @@ class GetSingleCharacterCombineUseCaseImpl @Inject constructor(
                 }
             }
         } else {
-            val remoteFlow = getSingleCharacterRemoteUseCase.invoke(id)
+            val remoteFlow = storyCharacterRemoteDataRepository.getLoadSingleCharacter(id)
             combine(localFlow, remoteFlow) { local, remote ->
                 when {
                     remote is Resource.Success -> {
-                        saveAllCharactersLocalUseCase.invoke(listOf(remote.data)).collect {}
+                        storyCharacterLocalDataRepository.saveAllCharacters(listOf(remote.data))
+                            .collect {}
                         Resource.Success(remote.data)
                     }
 
