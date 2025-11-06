@@ -11,6 +11,6 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath(libs.realm.plugin)
+        //classpath(libs.realm.plugin)
     }
 }
