@@ -1,23 +1,23 @@
 package pe.com.master.machines.database.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity
-data class StoryCharacterEntity(
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
+
+class StoryCharacterEntity : RealmObject {
     @PrimaryKey
-    val id: Int,
-    val name: String,
-    val status: String,
-    val species: String,
-    val type: String,
-    val gender: String,
-    val originName: String,
-    val originUrl: String,
-    val locationName: String,
-    val locationUrl: String,
-    val image: String,
-    val episode: String,
-    val url: String,
-    val created: String
-)
+    var id: Int = 0
+    var name: String = ""
+    var status: String = ""
+    var species: String = ""
+    var type: String = ""
+    var gender: String = ""
+    var originName: String = ""
+    var originUrl: String = ""
+    var locationName: String = ""
+    var locationUrl: String = ""
+    var image: String = ""
+    var episode: String = ""
+    var url: String = ""
+    var created: String = ""
+}

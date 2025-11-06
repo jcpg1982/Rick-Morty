@@ -8,3 +8,9 @@ plugins {
     alias(libs.plugins.google.devtools.ksp) apply false
     alias(libs.plugins.hilt.gradle) apply false
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.realm.plugin)
+    }
+}

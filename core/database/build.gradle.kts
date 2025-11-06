@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.kotlin.serialization)
+    id("kotlin-kapt")
+    id("realm-android")
 }
 
 android {
@@ -50,12 +52,8 @@ dependencies {
     ksp(libs.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.compiler)
-    //room
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-    androidTestImplementation(libs.androidx.room.testing)
-    implementation(libs.androidx.room.paging)
-    implementation(libs.androidx.paging.runtime.ktx)
+    //realm
+    implementation(libs.android.realm.base)
     //test
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)

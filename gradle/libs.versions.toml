@@ -40,9 +40,8 @@ coilCompose = "3.3.0"
 #permission
 permissions-android = "0.37.3"
 datastore-preferences = "1.1.7"
-#room
-roomKtx = "2.8.3"
-pagingCompose = "3.3.6"
+#realm
+realm = "3.0.0"
 
 [libraries]
 # AndroidX Core
@@ -96,16 +95,11 @@ android-permissions = { module = "com.google.accompanist:accompanist-permissions
 #icons
 androidx-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
-#room
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
-androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomKtx" }
-#pagging
-androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingCompose" }
-androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomKtx" }
-androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 # Gson
 google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+#realm
+android-realm-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
+realm-plugin = { group = "io.realm", name = "realm-gradle-plugin" ,version.ref = "realmPlugin"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -115,6 +109,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+realm-kotlin = { id = "io.realm.kotlin", version.ref = "realm" }
 
 [bundles]
 retrofit = [
